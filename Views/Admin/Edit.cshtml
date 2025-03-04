@@ -1,0 +1,44 @@
+﻿@model Tarea3_Core.Models.Usuarios
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Editar Usuario</h2>
+
+    <form asp-action="Edit" method="post" asp-antiforgery="true">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input asp-for="Nombre" class="form-control" required />
+            <span class="text-danger" asp-validation-for="Nombre"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input asp-for="Correo" type="email" class="form-control" required />
+            <span class="text-danger" asp-validation-for="Correo"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Rol:</label>
+            <select asp-for="RolId" asp-items="@ViewBag.Roles" class="form-control"></select>
+            <span class="text-danger" asp-validation-for="RolId"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Agregar FontAwesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

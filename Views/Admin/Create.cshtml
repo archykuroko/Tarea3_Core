@@ -1,0 +1,57 @@
+﻿@model Tarea3_Core.Models.RegisterViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Agregar Nuevo Usuario";
+}
+
+<div class="container mt-5">
+    <h2>Agregar Nuevo Usuario</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input asp-for="Nombre" class="form-control" required />
+            <span class="text-danger" asp-validation-for="Nombre"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input asp-for="Correo" type="email" class="form-control" required />
+            <span class="text-danger" asp-validation-for="Correo"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contraseña:</label>
+            <input asp-for="Contraseña" type="password" class="form-control" required />
+            <span class="text-danger" asp-validation-for="Contraseña"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Rol:</label>
+            <select asp-for="RolId" asp-items="@ViewBag.Roles" class="form-control">
+                <option value="">Seleccione un Rol</option>
+            </select>
+            <span class="text-danger" asp-validation-for="RolId"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Agregar Usuario
+        </button>
+
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </form>
+</div>
+
+<!-- Agregar FontAwesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

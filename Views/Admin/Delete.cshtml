@@ -1,0 +1,25 @@
+﻿@model Tarea3_Core.Models.Usuarios
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-danger">¿Estás seguro de que quieres eliminar a @Model.Nombre?</h2>
+
+    <div class="text-center mt-4">
+        <form asp-action="Delete" method="post" asp-antiforgery="true">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+
+<!-- Agregar FontAwesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

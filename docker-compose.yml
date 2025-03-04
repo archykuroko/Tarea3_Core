@@ -1,0 +1,19 @@
+﻿version: '3.8'
+
+services:
+  tarea3_core_container:
+    build: .
+    image: tarea3_core
+    container_name: tarea3_core_container
+
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver_container;Database=Tarea3_Core;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+    networks:
+      - tarea3_network
+
+networks:
+  tarea3_network:
+    external: true

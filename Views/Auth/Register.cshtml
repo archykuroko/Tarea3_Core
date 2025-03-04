@@ -1,0 +1,58 @@
+﻿@model Tarea3_Core.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;  
+}
+
+<link href="~/css/Styles.css" rel="stylesheet" />
+
+
+<link rel="stylesheet" href="~/Css/Styles.css" asp-append-version="true">
+
+<div class="wrapper">
+    <h2 class="text-center">Registro</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-info text-center">@ViewBag.Message</div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <form asp-action="Register" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="input-field">
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre Completo" required />
+            <span class="text-danger" asp-validation-for="Nombre"></span>
+        </div>
+
+        <div class="input-field">
+            <input asp-for="Correo" type="email" class="form-control" placeholder="Correo Electrónico" required />
+            <span class="text-danger" asp-validation-for="Correo"></span>
+        </div>
+
+        <div class="input-field">
+            <input asp-for="Contraseña" type="password" class="form-control" placeholder="Contraseña" required />
+            <span class="text-danger" asp-validation-for="Contraseña"></span>
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+
+        <div class="register text-center mt-3">
+            <p>¿Ya tienes cuenta? <a href="@Url.Action("Login", "Auth")">Inicia sesión aquí</a></p>
+        </div>
+    </form>
+</div>
