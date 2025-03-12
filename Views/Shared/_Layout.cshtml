@@ -54,6 +54,13 @@
 
                     @if (!string.IsNullOrEmpty(usuarioNombre))
                     {
+                        <!-- Botón "Mi Perfil" para cualquier usuario autenticado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Profile", "Profile")">
+                                <i class="fas fa-user"></i> Mi Perfil
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-danger" href="@Url.Action("Logout", "Auth")">
                                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión

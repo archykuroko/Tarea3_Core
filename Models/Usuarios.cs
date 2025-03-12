@@ -25,5 +25,9 @@ namespace Tarea3_Core.Models
 
         // 🔹 Agregar la relación con la tabla Roles
         public virtual Roles Rol { get; set; }
+
+        // 🔹 Nueva propiedad para la foto de perfil
+        public string Image { get; set; } = "/uploads/default.png"; // Imagen por defecto
     }
+
 }

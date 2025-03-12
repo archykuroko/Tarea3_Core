@@ -24,16 +24,25 @@ namespace Tarea3_Core.Controllers
         }
 
         // 📌 1. LISTAR USUARIOS
+        private bool EsAdministrador()
+        {
+            var rolId = HttpContext.Session.GetInt32("RolId");
+            return rolId.HasValue && rolId == 1;
+        }
+
+
         public IActionResult Index()
         {
+            if (!EsAdministrador()) return RedirectToAction("Login", "Auth");
+
             var usuarios = _context.Usuarios
-                .Include(u => u.Rol) // 🔹 Carga los roles
                 .Select(u => new UsuarioViewModel
                 {
                     Id = u.Id,
                     Nombre = u.Nombre,
                     Correo = u.Correo,
-                    RolNombre = u.Rol != null ? u.Rol.Nombre : "Sin Rol"
+                    RolNombre = u.Rol != null ? u.Rol.Nombre : "Sin Rol",
+                    Image = u.Image // 🔹 Agregamos la imagen
                 })
                 .ToList();
 

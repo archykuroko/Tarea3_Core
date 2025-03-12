@@ -39,6 +39,8 @@ app.UseRouting();
 app.UseAuthentication(); // 🔥 IMPORTANTE
 app.UseAuthorization();
 app.UseSession(); // 🔹 Habilita sesiones
+app.UseStaticFiles(); // Asegura que las imágenes se puedan servir
+
 
 app.MapControllerRoute(
     name: "default",
