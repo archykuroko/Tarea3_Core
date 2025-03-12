@@ -1,90 +1,129 @@
-﻿# Tarea3_Core
+﻿
 
+## 📝 Dockerizando una aplicación .NET Core 9.0
 
-###  Descripción
-Este proyecto es una aplicación en **ASP.NET Core con SQL Server**, diseñada para la autenticación de usuarios.  
-Utiliza **Docker y Docker Compose** para facilitar la ejecución y despliegue.
+# Tarea3_Core - Aplicación .NET 9 en Docker
 
+Este proyecto es una aplicación .NET 9.0 dockerizada, que puede ejecutarse sin necesidad de instalar Visual Studio ni el SDK de .NET en tu máquina. Solo necesitas tener **Docker** instalado.
 
+## 📌 **Requisitos previos**
+Antes de empezar, asegúrate de tener:
+- [Docker instalado](https://www.docker.com/get-started) en tu computadora.
+- Acceso a una terminal (CMD, PowerShell, Git Bash, etc.).
+_ VPN por si el firewall tiene bloqueado el puerto 1433 (Caso del IPN)
 
-##  1. Requisitos Previos
-Antes de instalar y ejecutar la aplicación, asegúrate de tener los siguientes programas instalados:
-
-### 🔧 Herramientas necesarias
-- .NET 9 SDK → https://dotnet.microsoft.com/en-us/download
-- SQL Server Management Studio (SSMS) (Opcional, para gestionar la base de datos) → https://aka.ms/ssmsfullsetup
-- Docker Desktop → https://www.docker.com/products/docker-desktop/
-- Git (Opcional, si deseas clonar el repositorio) → https://git-scm.com/downloads
-
-
-
-##  2. Instalación y Configuración
-###  Clonar el repositorio
-Si aún no tienes el código, clónalo con:
-git clone https://github.com/archykuroko/Tarea3_Core cd tu-repositorio
-
-
-###  Configuración de la base de datos
-1. **Asegúrate de que Docker esté ejecutándose.**
-2. **Ejecuta el siguiente comando para iniciar SQL Server en Docker:**
-
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 --name sqlserver_container -d mcr.microsoft.com/mssql/server:2022-latest
-
-3. **Conéctate a SQL Server con SSMS o desde la terminal** usando:
-
-   - **Servidor:** `localhost,1433`
-   - **Usuario:** `sa`
-   - **Contraseña:** `YourStrong!Passw0rd`
-
-4. **Ejecuta las migraciones para crear la base de datos (si usas EF Core)**:
-
-dotnet ef database update
-
+Credenciales por default:
+- Usuario: steven@test.com
+- Password: steven
+Esta cuenta es de rol: Administrador
 
 ---
 
-## 3. Ejecutar la Aplicación en Local
-Si deseas ejecutar la aplicación sin Docker:
-dotnet run
+## 🚀 **1. Construir la imagen Docker**
+Ejecuta el siguiente comando en la terminal dentro del directorio donde se encuentra el `Dockerfile`:
 
+```sh
+docker build -t tarea3_core .
+```
 
-Luego abre en tu navegador:
+📌 **Explicación**:
+- `docker build` → Construye la imagen Docker.
+- `-t tarea3_core` → Asigna el nombre `tarea3_core` a la imagen.
+- `.` → Indica que el `Dockerfile` está en el directorio actual.
+
+---
+
+## 🚀 **2. Ejecutar el contenedor**
+Después de construir la imagen, inicia un contenedor con:
+
+```sh
+docker run -d -p 5000:5000 --name tarea3_container tarea3_core
+```
+
+📌 **Explicación**:
+- `docker run` → Crea y ejecuta un nuevo contenedor.
+- `-d` → Ejecuta el contenedor en segundo plano (modo *detached*).
+- `-p 5000:5000` → Mapea el puerto **5000** del contenedor al **5000** de la máquina host.
+- `--name tarea3_container` → Asigna el nombre `tarea3_container` al contenedor.
+- `tarea3_core` → Es el nombre de la imagen creada en el paso anterior.
+
+---
+
+## 🚀 **3. Verificar que el contenedor está corriendo**
+Para asegurarte de que el contenedor se está ejecutando, usa:
+
+```sh
+docker ps
+```
+
+Si ves `tarea3_container` en la lista, ¡la aplicación está corriendo! 🎉
+
+---
+
+## 🚀 **4. Acceder a la aplicación**
+Abre tu navegador y visita:
+
+```
 http://localhost:5000
+```
 
+
+## 🚀 **5. Ver logs del contenedor**
+Si quieres ver lo que está sucediendo en la aplicación en tiempo real:
+
+```sh
+docker logs -f tarea3_container
+```
 
 ---
 
-## 🔹 4. Desplegar con Docker
-Para ejecutar la aplicación con Docker, usa **Docker Compose**.
+## 🚀 **6. Detener y eliminar el contenedor**
+Si necesitas detener el contenedor:
 
-### 📦 Construir la imagen de la aplicación
-docker-compose build
+```sh
+docker stop tarea3_container
+```
 
+Si luego quieres eliminarlo:
 
-### 🚀 Levantar los contenedores (App + SQL Server)
-docker-compose up -d
+```sh
+docker rm tarea3_container
+```
 
+---
 
-### 📌 Verificar los contenedores en ejecución
+## 🚀 **7. Eliminar la imagen (opcional)**
+Si deseas eliminar la imagen para reconstruirla desde cero:
+
+```sh
+docker rmi tarea3_core
+```
+
+---
+
+## ✅ **Resumen rápido de comandos**
+```sh
+# 1. Construir la imagen
+docker build -t tarea3_core .
+
+# 2. Ejecutar el contenedor
+docker run -d -p 5000:5000 --name tarea3_container tarea3_core
+
+# 3. Verificar que el contenedor está corriendo
 docker ps
 
+# 4. Ver logs del contenedor
+docker logs -f tarea3_container
+
+# 5. Detener el contenedor
+docker stop tarea3_container
+
+# 6. Eliminar el contenedor
+docker rm tarea3_container
+
+# 7. Eliminar la imagen (opcional)
+docker rmi tarea3_core
+```
 
 ---
-
-## 🔹 5. Acceder a la Aplicación
-Una vez levantados los contenedores, accede a:
-
-http://localhost:5000
-
-
-
-
-
-Si tienes problemas con la conexión a la base de datos, revisa la cadena de conexión en `appsettings.json`:
-
-```json
-"ConnectionStrings": {
-    "DefaultConnection": "Server=sqlserver_container;Database=Tarea3_Core;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True"
-}
-
 
