@@ -1,0 +1,47 @@
+﻿@model List<Tarea3_Core.Models.Book>
+
+@{
+    ViewData["Title"] = "Buscar Libros";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <!-- Formulario para buscar libros -->
+    <form asp-action="SearchBooks" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" id="query" name="query" placeholder="Autor, Género o Título" />
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <!-- Mostrar resultados si existen -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(book.ImageUrl))
+                        {
+                            <img src="@book.ImageUrl" class="card-img-top" alt="Portada del libro" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-text"><strong>Autor:</strong> @book.Author</p>
+                            <p class="card-text"><strong>Descripción:</strong> @book.Description</p>
+                            <p class="card-text"><strong>Publicado en:</strong> @book.PublishedDate</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else if (Model != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            No se encontraron libros.
+        </div>
+    }
+</div>

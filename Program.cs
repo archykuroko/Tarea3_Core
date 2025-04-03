@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tarea3_Core.Data;
+using Tarea3_Core.Services; // Asegúrate de importar el namespace del servicio
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,12 @@ builder.Services.AddAuthorization(); // 🔹 Agregar autorización
 // Configurar MVC
 builder.Services.AddControllersWithViews();
 
+// 🔹 Registra HttpClient usando IHttpClientFactory
+builder.Services.AddHttpClient(); // Registra HttpClient para inyección
+
+// Registrar BookService como Singleton (o Scoped si necesitas que se cree una instancia por solicitud)
+builder.Services.AddSingleton<BookService>();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
@@ -41,9 +48,9 @@ app.UseAuthorization();
 app.UseSession(); // 🔹 Habilita sesiones
 app.UseStaticFiles(); // Asegura que las imágenes se puedan servir
 
-
+// Configurar las rutas del controlador
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=Login}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}"); // Asegúrate de que BookController sea la ruta predeterminada
 
 app.Run();

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Buscar Libros";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Formulario para buscar libros -->
+<form asp-action="SearchBooks" method="get">
+    <div class="form-group">
+        <label for="query">Ingrese un autor, género o título:</label>
+        <input type="text" class="form-control" id="query" name="query" placeholder="Autor, Género o Título" />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<!-- Mostrar resultados si existen -->
+@if (Model != null && Model.Any())
+{
+    <h3>Resultados:</h3>
+    <ul>
+        @foreach (var book in Model)
+        {
+            <li>
+                <h4>@book.Title</h4>
+                <p><strong>Autor:</strong> @book.Author</p>
+                <p><strong>Descripción:</strong> @book.Description</p>
+                <p><strong>Publicado en:</strong> @book.PublishedDate</p>
+                @if (!string.IsNullOrEmpty(book.ImageUrl))
+                {
+                    <img src="@book.ImageUrl" alt="Portada del libro" style="width: 100px;" />
+                }
+            </li>
+        }
+    </ul>
+}
+else if (Model != null)
+{
+    <p>No se encontraron libros.</p>
+}
