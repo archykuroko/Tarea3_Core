@@ -1,32 +1,333 @@
-html {
-  font-size: 14px;
+/* Definir variables CSS para temas */
+:root {
+    --primary-bg-color: #ffffff; /* Fondo claro */
+    --primary-text-color: #000000; /* Texto claro */
+    --secondary-bg-color: #f8f9fa; /* Fondo secundario */
+    --navbar-bg-color: #343a40; /* Color de fondo de la barra de navegación */
+    --navbar-text-color: #ffffff; /* Color de texto de la barra de navegación */
+    --button-bg-color: #007bff; /* Color de fondo de los botones */
+    --button-text-color: #ffffff; /* Color de texto de los botones */
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* Modo claro (por defecto) */
+body.light-mode {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    body.light-mode .navbar {
+        background-color: var(--navbar-bg-color);
+        color: var(--navbar-text-color);
+    }
+
+    body.light-mode .btn {
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+    }
+
+/* Modo oscuro */
+body.dark-mode {
+    background-color: #121212; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto claro en modo oscuro */
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+    body.dark-mode .navbar {
+        background-color: #1c1c1c; /* Fondo oscuro para la navbar */
+        color: #e0e0e0; /* Texto claro en la navbar */
+    }
+
+    body.dark-mode .btn {
+        background-color: #6200ea; /* Color de botones en modo oscuro */
+        color: #ffffff; /* Texto de los botones en blanco */
+    }
+
+/* Estilos adicionales para formularios, enlaces y demás componentes */
+body.light-mode .form-control {
+    background-color: #ffffff;
+    color: #495057;
 }
 
+body.dark-mode .form-control {
+    background-color: #333333;
+    color: #e0e0e0;
+}
+
+body.light-mode .form-check-input {
+    background-color: #ffffff;
+    border-color: #ced4da;
+}
+
+body.dark-mode .form-check-input {
+    background-color: #333333;
+    border-color: #555555;
+}
+
+body.light-mode a {
+    color: #007bff;
+}
+
+body.dark-mode a {
+    color: #bb86fc; /* Color morado para enlaces en modo oscuro */
+}
+
+body.dark-mode .navbar a {
+    color: #e0e0e0; /* Enlaces de navbar en modo oscuro */
+}
+
+body.light-mode .navbar a {
+    color: #ffffff; /* Enlaces de navbar en modo claro */
+}
+
+/* Asegurarse de que los bordes de los botones y formularios sean adecuados */
+body.light-mode .btn:focus, body.dark-mode .btn:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Agregar transición para un cambio suave de colores */
 body {
-  margin-bottom: 60px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.navbar {
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.form-control {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-check-input {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+a {
+    transition: color 0.3s ease;
+}
+
+
+/* Navbar con blur en el modo oscuro y claro */
+.navbar {
+    position: relative;
+    backdrop-filter: blur(10px); /* Aplica el desenfoque de fondo */
+    -webkit-backdrop-filter: blur(10px); /* Asegura compatibilidad con Safari */
+    transition: background-color 0.3s ease, color 0.3s ease, backdrop-filter 0.3s ease; /* Transición suave */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil en la parte inferior */
+}
+
+/* Modo oscuro: fondo oscuro con blur */
+body.dark-mode .navbar {
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semi-transparente */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Modo claro: fondo claro con blur */
+body.light-mode .navbar {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo claro semi-transparente */
+    color: #ffffff; 
+}
+
+    body.light-mode .navbar a {
+        color: #ffffff; 
+    }
+
+body.dark-mode .navbar a {
+    color: #ffffff; 
+}
+
+body.light-mode .navbar a, body.dark-mode .navbar a {
+    transition: color 0.3s ease;
+}
+
+
+
+
+/* Estilos para el formulario de búsqueda */
+.form-group label {
+    font-weight: bold;
+}
+
+.input-group {
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Espaciado entre el formulario y los resultados */
+}
+
+    .input-group .form-control {
+        border-radius: 25px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group button {
+        border-radius: 25px;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .input-group button:hover {
+            background-color: #0056b3;
+        }
+
+/* Estilos para las cards de libros */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+}
+
+    .card:hover {
+        transform: translateY(-5px); /* Efecto de hover para las cards */
+    }
+
+.card-img-top {
+    border-bottom: 1px solid #ddd; /* Borde entre la imagen y el contenido */
+    height: 200px; /* Ajustamos la altura de la imagen */
+    object-fit: cover; /* Aseguramos que la imagen cubra el espacio */
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+}
+
+/* Layout responsivo para mostrar los resultados en varias columnas */
+@media (min-width: 768px) {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Espaciado entre las columnas */
+    }
+
+    .col-md-4 {
+        flex: 1 1 30%; /* Tres columnas en pantallas medianas */
+    }
+}
+
+@media (min-width: 1024px) {
+    .col-md-4 {
+        flex: 1 1 22%; /* Cuatro columnas en pantallas muy grandes */
+    }
+}
+
+
+
+
+/* Fondo general y diseño para la página de inicio */
+body.home {
+    background: linear-gradient(135deg, #5c6bc0, #3f51b5); /* Gradiente de fondo */
+    color: #fff;
+    font-family: 'Roboto', sans-serif; /* Fuente moderna */
+}
+
+    /* Título principal */
+    body.home h1.display-4 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Sombra para hacerlo más legible */
+        margin-bottom: 30px;
+    }
+
+    /* Subtítulo o mensaje de bienvenida */
+    body.home p.lead {
+        font-size: 1.3rem;
+        color: #ffffff;
+        font-weight: 300; /* Hacerlo más ligero */
+        margin-bottom: 40px;
+    }
+
+    /* Estilo de los botones */
+    body.home .btn {
+        border-radius: 30px; /* Bordes más redondeados */
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    /* Botón primario (gestión de usuarios) */
+    body.home .btn-primary {
+        background-color: #ff4081;
+        border-color: #ff4081;
+    }
+
+        body.home .btn-primary:hover {
+            background-color: #f50057;
+            border-color: #f50057;
+            transform: scale(1.05); /* Efecto al pasar el ratón */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Botón de búsqueda de libros */
+    body.home .btn-info {
+        background-color: #1e88e5;
+        border-color: #1e88e5;
+    }
+
+        body.home .btn-info:hover {
+            background-color: #1976d2;
+            border-color: #1976d2;
+            transform: scale(1.05); /* Efecto al pasar el ratón */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Contenedor de la página de inicio */
+    body.home .container {
+        background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco semi-transparente */
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        margin-top: 80px;
+    }
+
+        /* Añadir un gradiente en la parte superior para dar más profundidad */
+        body.home .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+            border-radius: 20px 20px 0 0;
+        }
+
+    /* Efectos de hover en los iconos */
+    body.home i.fas {
+        font-size: 1.6rem;
+        margin-right: 10px;
+        transition: color 0.3s ease;
+    }
+
+        body.home i.fas:hover {
+            color: #ff4081;
+        }
+
+/* Estilos responsivos para móviles */
+@media (max-width: 767px) {
+    body.home h1.display-4 {
+        font-size: 2.5rem; /* Título más pequeño en dispositivos pequeños */
+    }
+
+    body.home .btn {
+        width: 100%; /* Hacer los botones de ancho completo */
+        margin-bottom: 15px;
+    }
+}

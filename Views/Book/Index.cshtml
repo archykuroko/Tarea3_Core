@@ -17,21 +17,24 @@
 @if (Model != null && Model.Any())
 {
     <h3>Resultados:</h3>
-    <ul>
+    <div class="card-columns">
+        <!-- Cards en varias columnas -->
         @foreach (var book in Model)
         {
-            <li>
-                <h4>@book.Title</h4>
-                <p><strong>Autor:</strong> @book.Author</p>
-                <p><strong>Descripción:</strong> @book.Description</p>
-                <p><strong>Publicado en:</strong> @book.PublishedDate</p>
+            <div class="card">
                 @if (!string.IsNullOrEmpty(book.ImageUrl))
                 {
-                    <img src="@book.ImageUrl" alt="Portada del libro" style="width: 100px;" />
+                    <img src="@book.ImageUrl" alt="Portada del libro" />
                 }
-            </li>
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title</h5>
+                    <p class="card-text"><strong>Autor:</strong> @book.Author</p>
+                    <p class="card-text"><strong>Descripción:</strong> @book.Description</p>
+                    <p class="card-text"><strong>Publicado en:</strong> @book.PublishedDate</p>
+                </div>
+            </div>
         }
-    </ul>
+    </div>
 }
 else if (Model != null)
 {
