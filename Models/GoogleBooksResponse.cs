@@ -17,6 +17,7 @@
         public string Description { get; set; }
         public string PublishedDate { get; set; }
         public GoogleBookImageLinks ImageLinks { get; set; }
+        public string InfoLink { get; set; }
     }
 
     public class GoogleBookImageLinks

@@ -32,7 +32,27 @@
                             <p class="card-text"><strong>Autor:</strong> @book.Author</p>
                             <p class="card-text"><strong>Descripción:</strong> @book.Description</p>
                             <p class="card-text"><strong>Publicado en:</strong> @book.PublishedDate</p>
+
+                            @if (!string.IsNullOrEmpty(book.InfoLink))
+                            {
+                                <a href="@book.InfoLink" target="_blank" class="btn btn-primary mt-2">Ver en Google Books</a>
+                            }
+
+
+                            <form asp-action="AddFavorite" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="title" value="@book.Title" />
+                                <input type="hidden" name="author" value="@book.Author" />
+                                <input type="hidden" name="description" value="@book.Description" />
+                                <input type="hidden" name="publishedDate" value="@book.PublishedDate" />
+                                <input type="hidden" name="imageUrl" value="@book.ImageUrl" />
+                                <input type="hidden" name="infoLink" value="@book.InfoLink" />
+                                <button type="submit" class="btn btn-success mt-2">Agregar a Favoritos</button>
+                            </form>
+
+
                         </div>
+
                     </div>
                 </div>
             }

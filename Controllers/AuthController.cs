@@ -134,7 +134,7 @@ namespace Tarea3_Core.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                return usuario.RolId == 1 ? RedirectToAction("Index", "Admin") : RedirectToAction("Index", "Home");
+                return usuario.RolId == 1 ? RedirectToAction("Index", "Home") : RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
